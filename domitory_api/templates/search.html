@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <title>控制器</title>
+        <!-- 引入Bootstrap 5的CSS文件 -->
+        <link href="{% static '/css/bootstrap.css' %}" rel="stylesheet">
+        <link rel="icon" href="{% static '/img/logo.ico' %}" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+              integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        <script src="{% static '/js/bootstrap.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    </head>
+</head>
+<body>
+搜索姓名：
+<form method="post" action="search">
+    {% csrf_token %}
+    <label for="stuName" class="form-label">姓名:</label>
+    <input type="text" name="stuName" class="form-control" id="stuName">
+    <input type="submit" value="搜索" class="btn btn-outline-primary">
+</form>
+搜索寝室：
+<form method="post" action="search">
+    <label for="building" class="form-label">楼号:</label>
+    {% csrf_token %}
+    <select class="form-select" id="building" name="building">
+        <option value="7">7</option>
+        <option value="7">8</option>
+    </select>
+    <input type="text" placeholder="寝室号" class="form-control" name="room">
+    <input type="submit" value="搜索" class="btn btn-outline-primary">
+</form>
+{% if keyword %}
+<div class="card">
+    <h4 class="card-header">搜索：</h4>
+    <div class="card-body">
+        {{ keyword }} <a href="search"><i class="fa-solid fa-delete-left"></i></a>
+    </div>
+</div>
+{% endif %}
+<h1>寝室管理系统</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>房间号</th>
+        <th>分数</th>
+        <th>床位号</th>
+        <th>姓名</th>
+        <th>电话</th>
+        <th>学号</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in results %}
+        <tr>
+            <td>{{ row.1 }}-{{ row.2 }}</td>
+            <td>{{ row.3 }}</td>
+            <td>{{ row.4 }}</td>
+            <td>{{ row.5 }}</td>
+            <td>{{ row.6 }}</td>
+            <td>{{ row.7 }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

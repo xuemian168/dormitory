@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>suguan</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>寝室号</th>
+        <th>评分</th>
+    </tr>
+    {% for foo in rooms %}
+        <tr>
+            <td>{{ foo.room }}</td>
+            <td>
+                <form method="post">
+                    <input type="text" name="score" value="{{ foo.score }}" data-roomId="{{ foo.id }}" maxlength="3">
+                    <!-- 要只能是数字，否则不得进入JavaScript提交步骤 -->
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<script type="application/javascript">
+    // 每个分数框（score）修改后自动保存
+</script>
+</body>
+</html>
